@@ -24,7 +24,7 @@ export default function TextForm(props) {
 
     const handleEmailExtract = () => {
         setEmails([]);
-        let newEmail = text.split(" ").filter(e => (e.includes('@') && e.includes('.')));
+        let newEmail = text.split(/\s+/).filter(e => (e.includes('@') && e.includes('.')));
         console.log(newEmail);
         setEmails(emails => [...emails, newEmail]);
         if(newEmail.length === 0){
@@ -69,7 +69,7 @@ export default function TextForm(props) {
         </div>
         <div className="container my-4">
             <h2>Your text summary</h2>
-            <p>{text.split(" ").filter((element) => (element.length !== 0)).length} words and {text.length === 0 ? 0 : text.length + 1 - text.split(" ").filter((element) => (element.length !== 0)).length} characters</p>
+            <p>{text.split(/\s+/).filter((element) => (element.length !== 0)).length} words and {text.length === 0 ? 0 : text.length + 1 - text.split(/\s+/).filter((element) => (element.length !== 0)).length} characters</p>
             <p>{0.008 * (text.split(" ").filter((element) => (element.length !== 0)).length)} Minutes to read</p>
             <h4>Preview</h4>
             <p>{text.length > 0 ? text : "Enter some text in the text box to preview it here"}</p>
