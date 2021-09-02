@@ -44,6 +44,7 @@ export default function TextForm(props) {
     const handleExtraSpaces = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "));
+        props.showAlert("Extra spaces removed", "success" )
     }
 
     const handleOnChange = (event) =>{
@@ -57,19 +58,19 @@ export default function TextForm(props) {
         <div className='container my-4'>
             <h2>{props.heading}</h2>
             <div className="mb-3">
-                <textarea className="form-control" value={text} placeholder="Enter you text here" onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                <textarea className="form-control" value={text} placeholder="Enter you text here" onChange={handleOnChange} id="myBox" rows="8" style={{backgroundColor : props.mode==="light" ? "#fff" : "#212529" , color : props.mode==="light" ? "#212529" : "#fff"}}></textarea>
             </div>
-            <button className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleUpClick}>Convert to uppercase</button>
-            <button className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleLoClick}>Convert to lowercase</button>
-            <button className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleClearClick}>Clear text</button>
-            <button className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleEmailExtract}>Extract email from text</button>
-            <button className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleCopy}>Copy Text</button>
-            <button className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleExtraSpaces}>Remove Extra Spaces</button>
+            <button disabled ={text.length === 0} className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleUpClick}>Convert to uppercase</button>
+            <button disabled ={text.length === 0} className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleLoClick}>Convert to lowercase</button>
+            <button disabled ={text.length === 0} className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleClearClick}>Clear text</button>
+            <button disabled ={text.length === 0} className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleEmailExtract}>Extract email from text</button>
+            <button disabled ={text.length === 0} className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleCopy}>Copy Text</button>
+            <button disabled ={text.length === 0} className={`btn btn-${props.mode === "light" ? "secondary" : "dark"} mr-1 mb-1`} onClick= {handleExtraSpaces}>Remove Extra Spaces</button>
         </div>
         <div className="container my-4">
             <h2>Your text summary</h2>
-            <p>{text.length === 0 ? 0 : text.split(" ").length} words and {text.length === 0 ? 0 : text.length + 1 - text.split(" ").length} characters</p>
-            <p>{0.008 * (text.length === 0 ? 0 : text.split(" ").length)} Minutes to read</p>
+            <p>{text.split(" ").filter((element) => (element.length !== 0)).length} words and {text.length === 0 ? 0 : text.length + 1 - text.split(" ").filter((element) => (element.length !== 0)).length} characters</p>
+            <p>{0.008 * (text.split(" ").filter((element) => (element.length !== 0)).length)} Minutes to read</p>
             <h4>Preview</h4>
             <p>{text.length > 0 ? text : "Enter some text in the text box to preview it here"}</p>
             <h4>Emails Present in the text</h4>
